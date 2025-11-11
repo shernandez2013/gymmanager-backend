@@ -66,7 +66,7 @@ class BranchControllerTest {
         assertEquals(HttpStatus.OK, resp.getStatusCode());
         assertNotNull(resp.getBody());
         assertEquals(1, resp.getBody().size());
-        assertSame(b, resp.getBody().get(0));
+        assertSame(b, resp.getBody().getFirst());
 
         verify(service).getAllBranches();
     }
