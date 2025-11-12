@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -37,13 +36,13 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     @Transactional(readOnly = true)
-    public Branch getBranchById(UUID id) {
+    public Branch getBranchById(Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Branch not found with id: " + id));
     }
 
     @Override
-    public Branch updateBranch(UUID id, Branch branch) {
+    public Branch updateBranch(Integer id, Branch branch) {
         Branch existing = getBranchById(id);
         // update allowed fields
         existing.setName(branch.getName());
@@ -57,7 +56,7 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
-    public void deleteBranch(UUID id) {
+    public void deleteBranch(Integer id) {
         Branch existing = getBranchById(id);
         repository.delete(existing);
     }

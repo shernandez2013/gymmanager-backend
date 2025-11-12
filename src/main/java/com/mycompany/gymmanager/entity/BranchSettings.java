@@ -3,16 +3,14 @@ package com.mycompany.gymmanager.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.*;
 
 @Entity
 @Table(name = "branch_settings")
 public class BranchSettings {
 
     @Id
-    @GeneratedValue
-    @Column(columnDefinition = "UUID", updatable = false, nullable = false)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "branch_id")
@@ -33,7 +31,7 @@ public class BranchSettings {
     public BranchSettings() {
     }
 
-    public BranchSettings(UUID id, Branch branch, String themeColor, String logoUrl, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public BranchSettings(Integer id, Branch branch, String themeColor, String logoUrl, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.branch = branch;
         this.themeColor = themeColor;
@@ -42,11 +40,11 @@ public class BranchSettings {
         this.updatedAt = updatedAt;
     }
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
