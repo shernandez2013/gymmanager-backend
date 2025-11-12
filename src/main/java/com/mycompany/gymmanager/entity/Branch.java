@@ -3,16 +3,15 @@ package com.mycompany.gymmanager.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.*;
 
 @Entity
 @Table(name = "branches")
 public class Branch {
 
     @Id
-    @GeneratedValue
-    @Column(columnDefinition = "UUID", updatable = false, nullable = false)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
     @Column(nullable = false)
     private String name;
@@ -29,23 +28,14 @@ public class Branch {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-    // Relaciones
-    @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<User> users = new ArrayList<>();
-
-    @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Workout> workouts = new ArrayList<>();
-
-    @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BranchSettings> settings = new ArrayList<>();
-
     // Getters y setters
 
 
     public Branch() {
     }
 
-    public Branch(UUID id, String name, String address, String city, String state, String country, String phone, LocalDateTime createdAt, LocalDateTime updatedAt, List<User> users, List<Workout> workouts, List<BranchSettings> settings) {
+    public Branch(Integer id, String name, String address, String city, String state, String country, String phone,
+                  LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -55,16 +45,13 @@ public class Branch {
         this.phone = phone;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.users = users;
-        this.workouts = workouts;
-        this.settings = settings;
     }
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -130,30 +117,6 @@ public class Branch {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public List<Workout> getWorkouts() {
-        return workouts;
-    }
-
-    public void setWorkouts(List<Workout> workouts) {
-        this.workouts = workouts;
-    }
-
-    public List<BranchSettings> getSettings() {
-        return settings;
-    }
-
-    public void setSettings(List<BranchSettings> settings) {
-        this.settings = settings;
     }
 }
 
