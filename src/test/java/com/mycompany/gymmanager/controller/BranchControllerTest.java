@@ -12,10 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,7 +38,7 @@ class BranchControllerTest {
         input.setName("Main");
 
         Branch saved = new Branch();
-        UUID id = UUID.randomUUID();
+        Integer id = ThreadLocalRandom.current().nextInt(1000, 10000);
         saved.setId(id);
         saved.setName("Main");
 
@@ -55,7 +56,7 @@ class BranchControllerTest {
     @Test
     void getAllBranches_returnsList() {
         Branch b = new Branch();
-        b.setId(UUID.randomUUID());
+        Integer id = ThreadLocalRandom.current().nextInt(1000, 10000);
         b.setName("Branch1");
 
         List<Branch> list = List.of(b);
@@ -73,7 +74,7 @@ class BranchControllerTest {
 
     @Test
     void getBranchById_returnsBranch() {
-        UUID id = UUID.randomUUID();
+        Integer id = ThreadLocalRandom.current().nextInt(1000, 10000);
         Branch b = new Branch();
         b.setId(id);
         b.setName("BranchX");
@@ -91,8 +92,8 @@ class BranchControllerTest {
 
     @Test
     void getBranchById_notFound_throwsResourceNotFoundException() {
-        UUID id = UUID.randomUUID();
-        when(service.getBranchById(any(UUID.class))).thenThrow(new ResourceNotFoundException("not found"));
+        Integer id = ThreadLocalRandom.current().nextInt(1000, 10000);
+        when(service.getBranchById(any(Integer.class))).thenThrow(new ResourceNotFoundException("not found"));
 
         assertThrows(ResourceNotFoundException.class, () -> controller.getBranchById(id));
 
@@ -101,7 +102,7 @@ class BranchControllerTest {
 
     @Test
     void updateBranch_returnsUpdated() {
-        UUID id = UUID.randomUUID();
+        Integer id = ThreadLocalRandom.current().nextInt(1000, 10000);
         Branch update = new Branch();
         update.setName("Updated");
 
@@ -122,7 +123,7 @@ class BranchControllerTest {
 
     @Test
     void deleteBranch_returnsNoContent() {
-        UUID id = UUID.randomUUID();
+        Integer id = ThreadLocalRandom.current().nextInt(1000, 10000);
         doNothing().when(service).deleteBranch(id);
 
         ResponseEntity<Void> resp = controller.deleteBranch(id);
