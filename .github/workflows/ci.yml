@@ -1,0 +1,55 @@
+name: CI - build and test gym manager application
+
+on:
+  push:
+    branches: [develop, stage, master]
+  pull_request:
+    branches: [develop, stage, master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: gym
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U test"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      DB_URL: jdbc:postgresql://localhost:5432/gym
+      DB_USER: test
+      DB_PASS: test
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure mvnw is executable
+        run: chmod +x mvnw
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build & Test with Maven
+        run: ./mvnw -B clean verify -Dspring.profiles.active=test

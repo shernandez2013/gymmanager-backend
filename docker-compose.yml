@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  gymmanager-app:
+    build: .
+    container_name: gymmanager
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      DB_URL: ${DB_URL}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+    restart: always
