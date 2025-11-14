@@ -1,4 +1,4 @@
-name: CI - Build & Test (Spring Boot)
+name: CI - build and test gym manager application
 
 on:
   push:
