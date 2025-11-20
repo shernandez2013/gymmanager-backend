@@ -3,7 +3,7 @@ FROM maven:3.9.9-eclipse-temurin-21 AS build
 WORKDIR /workspace
 
 # Cache Maven dependencies
-COPY pom.xml .
+COPY pom.xml ./
 COPY .mvn .mvn
 RUN mvn -B dependency:go-offline
 
@@ -13,7 +13,7 @@ RUN mvn -B -DskipTests package
 
 # ---------- Runtime stage ----------
 FROM eclipse-temurin:21-jre-jammy
-ARG JAR_FILE=target/*.jar
+ARG JAR_FILE=target/gymmanager-0.0.1-SNAPSHOT.jar
 COPY --from=build /workspace/${JAR_FILE} /app/app.jar
 
 # Create non-root user for security
