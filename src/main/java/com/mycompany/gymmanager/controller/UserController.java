@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable UUID id) {
+    public ResponseEntity<User> getUserById(@PathVariable("id") UUID id) {
         Optional<User> userOpt = userService.getUserById(id);
         return userOpt
                 .map(ResponseEntity::ok)
@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable UUID id, @Valid @RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable("id") UUID id, @Valid @RequestBody User user) {
         try {
             User updatedUser = userService.updateUser(id, user);
             return ResponseEntity.ok(updatedUser);
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") UUID id) {
         try {
             userService.deleteUser(id);
             return ResponseEntity.noContent().build();

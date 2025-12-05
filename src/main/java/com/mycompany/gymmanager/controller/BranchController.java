@@ -31,19 +31,19 @@ public class BranchController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Branch> getBranchById(@PathVariable Integer id) {
+    public ResponseEntity<Branch> getBranchById(@PathVariable("id") Integer id) {
         Branch branch = service.getBranchById(id);
         return ResponseEntity.ok(branch);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Branch> updateBranch(@PathVariable Integer id, @RequestBody Branch branch) {
+    public ResponseEntity<Branch> updateBranch(@PathVariable("id") Integer id, @RequestBody Branch branch) {
         Branch updated = service.updateBranch(id, branch);
         return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBranch(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteBranch(@PathVariable("id") Integer id) {
         service.deleteBranch(id);
         return ResponseEntity.noContent().build();
     }
