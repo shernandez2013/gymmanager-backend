@@ -72,7 +72,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Validación con @Valid -->
+        <!-- @Valid -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -91,7 +91,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Tests con JUnit -->
+        <!-- JUnit Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -101,7 +101,7 @@
 
     <build>
         <plugins>
-            <!-- Plugin de compilación Java -->
+            <!-- Java compilation plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
