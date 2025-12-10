@@ -1,5 +1,6 @@
 package com.mycompany.gymmanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ public class Notification {
     @Column(columnDefinition = "UUID", updatable = false, nullable = false)
     private UUID id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

@@ -1,5 +1,6 @@
 package com.mycompany.gymmanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ public class Workout {
     @Column(columnDefinition = "UUID", updatable = false, nullable = false)
     private UUID id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "branch_id")
     private Branch branch;
@@ -31,6 +33,7 @@ public class Workout {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkoutDay> workoutDays = new ArrayList<>();
 
