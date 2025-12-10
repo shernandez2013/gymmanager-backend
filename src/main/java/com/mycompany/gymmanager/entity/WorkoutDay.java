@@ -1,5 +1,6 @@
 package com.mycompany.gymmanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.*;
 
@@ -27,6 +28,7 @@ public class WorkoutDay {
     private Integer durationMinutes;
     private String notes;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "workoutDay", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProgressLog> progressLogs = new ArrayList<>();
 

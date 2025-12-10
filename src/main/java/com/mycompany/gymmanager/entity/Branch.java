@@ -1,8 +1,11 @@
 package com.mycompany.gymmanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "branches")
@@ -28,14 +31,15 @@ public class Branch {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-    // Getters y setters
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "branch")
+    private List<User> users = new ArrayList<>();
 
     public Branch() {
     }
 
-    public Branch(Integer id, String name, String address, String city, String state, String country, String phone,
-                  LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Branch(Integer id, String name, String address, String city, String state, String country,
+                  String phone, LocalDateTime createdAt, LocalDateTime updatedAt, List<User> users) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -45,6 +49,7 @@ public class Branch {
         this.phone = phone;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.users = users;
     }
 
     public Integer getId() {
@@ -117,6 +122,14 @@ public class Branch {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
 
