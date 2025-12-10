@@ -1,5 +1,6 @@
 package com.mycompany.gymmanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -14,8 +15,10 @@ public class Notification {
     @Column(columnDefinition = "UUID", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "user_id", columnDefinition = "UUID")
-    private UUID user;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     private String message;
     private Boolean read = false;
@@ -26,7 +29,7 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(UUID id, UUID user, String message, Boolean read, LocalDateTime createdAt) {
+    public Notification(UUID id, User user, String message, Boolean read, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.message = message;
@@ -42,11 +45,11 @@ public class Notification {
         this.id = id;
     }
 
-    public UUID getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UUID user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
