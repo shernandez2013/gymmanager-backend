@@ -12,9 +12,8 @@ public class BranchSettings {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "branch_id")
-    private Branch branch;
+    @Column(name = "branch_id")
+    private Integer branch;
 
     @Column(name = "theme_color")
     private String themeColor = "blue";
@@ -31,7 +30,7 @@ public class BranchSettings {
     public BranchSettings() {
     }
 
-    public BranchSettings(Integer id, Branch branch, String themeColor, String logoUrl, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public BranchSettings(Integer id, Integer branch, String themeColor, String logoUrl, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.branch = branch;
         this.themeColor = themeColor;
@@ -48,11 +47,11 @@ public class BranchSettings {
         this.id = id;
     }
 
-    public Branch getBranch() {
+    public Integer getBranch() {
         return branch;
     }
 
-    public void setBranch(Branch branch) {
+    public void setBranch(Integer branch) {
         this.branch = branch;
     }
 

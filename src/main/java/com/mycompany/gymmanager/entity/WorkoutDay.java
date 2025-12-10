@@ -12,9 +12,8 @@ public class WorkoutDay {
     @Column(columnDefinition = "UUID", updatable = false, nullable = false)
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "workout_id")
-    private Workout workout;
+    @Column(name = "workout_id")
+    private UUID workout;
 
     @Column(name = "day_of_week", nullable = false)
     private String dayOfWeek;
@@ -33,7 +32,7 @@ public class WorkoutDay {
     public WorkoutDay() {
     }
 
-    public WorkoutDay(UUID id, Workout workout, String dayOfWeek, String exerciseName, Integer sets, Integer reps,
+    public WorkoutDay(UUID id, UUID workout, String dayOfWeek, String exerciseName, Integer sets, Integer reps,
                       Integer durationMinutes, String notes, List<ProgressLog> progressLogs) {
         this.id = id;
         this.workout = workout;
@@ -54,11 +53,11 @@ public class WorkoutDay {
         this.id = id;
     }
 
-    public Workout getWorkout() {
+    public UUID getWorkout() {
         return workout;
     }
 
-    public void setWorkout(Workout workout) {
+    public void setWorkout(UUID workout) {
         this.workout = workout;
     }
 
